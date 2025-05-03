@@ -41,86 +41,157 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF7F8F9),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text("My Plot Layout", style: TextStyle(color: Colors.black)),
-        iconTheme: IconThemeData(color: Colors.black),
-        elevation: 0.5,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.delete_forever),
-            onPressed: _clearPlots,
-            tooltip: "Clear All Plots",
-          )
-        ],
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      backgroundColor: const Color(0xFFF7F8F9),
+      body: SafeArea(
+        child: Column(
+          children: [
+            // Header
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Icon(Icons.notifications_none, size: 28),
+                  Row(
+                    children: [
+                      const Text(
+                        "Layout Planning",
+                        style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(width: 8),
+                      IconButton(onPressed: () {}, icon: const Icon(Icons.add, size: 28)),
+                    ],
+                  ),
+                  const CircleAvatar(
+                    backgroundColor: Colors.grey,
+                    radius: 18,
+                    child: Icon(Icons.person, color: Colors.white, size: 20),
+                  ),
+                ],
+              ),
+            ),
+
+            // My Area label
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text("My Area", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // Map with zoom buttons
+            Stack(
               children: [
-                Text(
-                  "Current Layout",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87,
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  height: 200,
+                  width: double.infinity,
+                  child: FlutterMap(
+                    mapController: _mapController,
+                    options: MapOptions(
+                      center: LatLng(-27.4698, 153.0251), // Brisbane
+                      zoom: 16.0,
+                      onTap: (tapPosition, point) => _addPoint(point),
+                    ),
+                    children: [
+                      TileLayer(
+                        urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                        userAgentPackageName: 'com.example.farmapp',
+                      ),
+                      PolygonLayer(polygons: _plots),
+                    ],
                   ),
                 ),
-                SizedBox(height: 12),
-                
-                SizedBox(height: 24),
-                Text(
-                  "You can create, edit, or remove individual plots. Tap on the map to create plots by selecting 4 corners.",
-                  style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+                Positioned(
+                  right: 32,
+                  top: 16,
+                  child: Column(
+                    children: const [
+                      Icon(Icons.add_circle_outline, size: 28),
+                      SizedBox(height: 8),
+                      Icon(Icons.remove_circle_outline, size: 28),
+                    ],
+                  ),
                 ),
               ],
             ),
-          ),
-          Expanded(
-            child: FlutterMap(
-              mapController: _mapController,
-              options: MapOptions(
-                center: LatLng(-27.4698, 153.0251), // Brisbane default center
-                zoom: 16.0,
-                onTap: (tapPosition, point) => _addPoint(point),
-              ),
-              children: [
-                TileLayer(
-                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                  userAgentPackageName: 'com.example.farmapp',
-                ),
-                PolygonLayer(polygons: _plots),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Tap 4 points on the map to create a plot")),
-                  );
-                },
-                icon: Icon(Icons.add_location_alt),
-                label: Text("Add Plot"),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green[600],
-                  foregroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+
+            const SizedBox(height: 16),
+
+            // Tools and crop details
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text("My Tools", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                      const SizedBox(height: 12),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: const [
+                          Icon(Icons.grid_on, size: 40),
+                          Icon(Icons.circle_outlined, size: 40),
+                          Icon(Icons.crop_square, size: 40),
+                        ],
+                      ),
+                      const SizedBox(height: 24),
+
+                      const Text("My Crops", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                      const SizedBox(height: 12),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Image.asset("assets/crops/orange.png", height: 40),
+                          Image.asset("assets/crops/wheat.png", height: 40),
+                          Image.asset("assets/crops/leafy.png", height: 40),
+                          Image.asset("assets/crops/tree.png", height: 40),
+                          Image.asset("assets/crops/lettuce.png", height: 40),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+
+                      const TextField(
+                        decoration: InputDecoration(
+                          labelText: "Name",
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      const TextField(
+                        decoration: InputDecoration(
+                          labelText: "Spacing",
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: "Planting Date",
+                          border: const OutlineInputBorder(),
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.calendar_today),
+                            onPressed: () {
+                              // TODO: Add date picker logic
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
