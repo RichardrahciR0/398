@@ -38,6 +38,7 @@ class _MapPageState extends State<MapPage> {
     });
   }
 
+<<<<<<< HEAD
   Widget _drawerItem(BuildContext context, String title, String route) {
     return ListTile(
       title: Text(title),
@@ -73,15 +74,25 @@ class _MapPageState extends State<MapPage> {
           ],
         ),
       ),
+=======
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+>>>>>>> 74e4f9cfa76419cb338d36da284b982973dadc8e
       backgroundColor: const Color(0xFFF7F8F9),
       body: SafeArea(
         child: Column(
           children: [
+<<<<<<< HEAD
+=======
+            // Header
+>>>>>>> 74e4f9cfa76419cb338d36da284b982973dadc8e
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+<<<<<<< HEAD
                   Builder(
                     builder: (context) => IconButton(
                       icon: const Icon(Icons.menu, size: 28),
@@ -97,6 +108,17 @@ class _MapPageState extends State<MapPage> {
                       ),
                       SizedBox(width: 8),
                       Icon(Icons.add, size: 28),
+=======
+                  const Icon(Icons.notifications_none, size: 28),
+                  Row(
+                    children: [
+                      const Text(
+                        "Layout Planning",
+                        style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(width: 8),
+                      IconButton(onPressed: () {}, icon: const Icon(Icons.add, size: 28)),
+>>>>>>> 74e4f9cfa76419cb338d36da284b982973dadc8e
                     ],
                   ),
                   const CircleAvatar(
@@ -107,16 +129,30 @@ class _MapPageState extends State<MapPage> {
                 ],
               ),
             ),
+<<<<<<< HEAD
+=======
+
+            // My Area label
+>>>>>>> 74e4f9cfa76419cb338d36da284b982973dadc8e
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Align(
                 alignment: Alignment.centerLeft,
+<<<<<<< HEAD
                 child: Text("My Area",
                     style:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               ),
             ),
             const SizedBox(height: 8),
+=======
+                child: Text("My Area", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // Map with zoom buttons
+>>>>>>> 74e4f9cfa76419cb338d36da284b982973dadc8e
             Stack(
               children: [
                 Container(
@@ -126,14 +162,22 @@ class _MapPageState extends State<MapPage> {
                   child: FlutterMap(
                     mapController: _mapController,
                     options: MapOptions(
+<<<<<<< HEAD
                       center: LatLng(-27.4698, 153.0251),
+=======
+                      center: LatLng(-27.4698, 153.0251), // Brisbane
+>>>>>>> 74e4f9cfa76419cb338d36da284b982973dadc8e
                       zoom: 16.0,
                       onTap: (tapPosition, point) => _addPoint(point),
                     ),
                     children: [
                       TileLayer(
+<<<<<<< HEAD
                         urlTemplate:
                             'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+=======
+                        urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+>>>>>>> 74e4f9cfa76419cb338d36da284b982973dadc8e
                         userAgentPackageName: 'com.example.farmapp',
                       ),
                       PolygonLayer(polygons: _plots),
@@ -153,11 +197,21 @@ class _MapPageState extends State<MapPage> {
                 ),
               ],
             ),
+<<<<<<< HEAD
             const SizedBox(height: 16),
             Expanded(
               child: SingleChildScrollView(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+=======
+
+            const SizedBox(height: 16),
+
+            // Tools and crop details
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+>>>>>>> 74e4f9cfa76419cb338d36da284b982973dadc8e
                 child: Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
@@ -167,9 +221,13 @@ class _MapPageState extends State<MapPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+<<<<<<< HEAD
                       const Text("My Tools",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600)),
+=======
+                      const Text("My Tools", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+>>>>>>> 74e4f9cfa76419cb338d36da284b982973dadc8e
                       const SizedBox(height: 12),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -180,9 +238,14 @@ class _MapPageState extends State<MapPage> {
                         ],
                       ),
                       const SizedBox(height: 24),
+<<<<<<< HEAD
                       const Text("My Crops",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600)),
+=======
+
+                      const Text("My Crops", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+>>>>>>> 74e4f9cfa76419cb338d36da284b982973dadc8e
                       const SizedBox(height: 12),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -195,6 +258,10 @@ class _MapPageState extends State<MapPage> {
                         ],
                       ),
                       const SizedBox(height: 16),
+<<<<<<< HEAD
+=======
+
+>>>>>>> 74e4f9cfa76419cb338d36da284b982973dadc8e
                       const TextField(
                         decoration: InputDecoration(
                           labelText: "Name",
@@ -213,7 +280,16 @@ class _MapPageState extends State<MapPage> {
                         decoration: InputDecoration(
                           labelText: "Planting Date",
                           border: const OutlineInputBorder(),
+<<<<<<< HEAD
                           suffixIcon: Icon(Icons.calendar_today),
+=======
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.calendar_today),
+                            onPressed: () {
+                              // TODO: Add date picker logic
+                            },
+                          ),
+>>>>>>> 74e4f9cfa76419cb338d36da284b982973dadc8e
                         ),
                       ),
                     ],
@@ -224,6 +300,7 @@ class _MapPageState extends State<MapPage> {
           ],
         ),
       ),
+<<<<<<< HEAD
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.green,
@@ -236,6 +313,8 @@ class _MapPageState extends State<MapPage> {
           BottomNavigationBarItem(icon: Icon(Icons.calendar_month), label: ''),
         ],
       ),
+=======
+>>>>>>> 74e4f9cfa76419cb338d36da284b982973dadc8e
     );
   }
 }

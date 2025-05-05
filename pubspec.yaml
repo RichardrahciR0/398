@@ -29,7 +29,10 @@ flutter:
     - assets/crops/leafy.png
     - assets/crops/tree.png
     - assets/crops/lettuce.png
+<<<<<<< HEAD
     - assets/logo.png
    
 
 
+=======
+>>>>>>> 74e4f9cfa76419cb338d36da284b982973dadc8e
