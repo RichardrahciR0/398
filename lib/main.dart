@@ -3,8 +3,18 @@ import 'screens/home_page.dart';
 import 'screens/map_page.dart';
 import 'screens/task_page.dart';
 import 'screens/settings_page.dart';
+<<<<<<< HEAD
 import 'screens/notifications_page.dart';
 import 'screens/taskmanager.dart';
+=======
+<<<<<<< HEAD
+import 'screens/notifications_page.dart';
+
+import 'screens/taskmanager.dart';
+=======
+import 'screens/notifications_page.dart'; // ✅ Notifications page
+>>>>>>> 74e4f9cfa76419cb338d36da284b982973dadc8e
+>>>>>>> 8eb87bec0a1cc0baf9a9a3e078be6cbb127c28dd
 
 void main() {
   runApp(OrefoxApp());
